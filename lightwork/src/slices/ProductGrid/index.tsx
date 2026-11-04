@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PrismicNextImage } from "@prismicio/next";
+import type { ImageFieldImage } from "@prismicio/client";
 import type { SliceComponentProps } from "@prismicio/react";
 import ProductCard from "@/components/ProductCard";
 
@@ -12,12 +13,14 @@ type ResolvedProduct = {
   data: {
     name?: string | null;
     price?: number | null;
-    images?: { url?: string | null; alt?: string | null }[];
+    images?: ImageFieldImage<"filled">[];
     sold_out?: boolean | null;
   };
 };
 
 type Props = SliceComponentProps<{
+  id: string;
+  slice_type: "product_grid";
   primary: {
     heading?: string | null;
     view_all_link?: unknown;
@@ -60,7 +63,7 @@ export default function ProductGrid({ slice }: Props) {
             uid={p.uid!}
             name={p.data.name!}
             price={p.data.price ?? 0}
-            image={(p.data.images?.[0] ?? {}) as never}
+            image={p.data.images?.[0]}
             soldOut={p.data.sold_out}
           />
         ))}

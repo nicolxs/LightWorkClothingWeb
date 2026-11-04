@@ -14,7 +14,11 @@ type HeroPrimary = {
   cta_link?: { url?: string | null; text?: string | null } | null;
 };
 
-export type HeroProps = SliceComponentProps<{ primary: HeroPrimary }>;
+export type HeroProps = SliceComponentProps<{
+  id: string;
+  slice_type: "hero";
+  primary: HeroPrimary;
+}>;
 
 /**
  * Full-bleed hero. The hero image is the LCP element on mobile — high fetch

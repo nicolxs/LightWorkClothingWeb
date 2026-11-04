@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { PrismicNextImage } from "@prismicio/next";
-import type { ImageField } from "@prismicio/client";
+import type { ImageFieldImage } from "@prismicio/client";
 import { formatPrice } from "@/lib/whatsapp";
 
 type ProductCardProps = {
   uid: string;
   name: string;
   price: number;
-  image: ImageField;
+  /** First image of the product's repeatable `images` field. */
+  image: ImageFieldImage<"filled"> | undefined;
   soldOut?: boolean | null;
 };
 
@@ -25,12 +26,16 @@ export default function ProductCard({ uid, name, price, image, soldOut }: Produc
       aria-label={`${name} — N$ ${formatPrice(price)}${soldOut ? " (sold out)" : ""}`}
     >
       <div className="relative aspect-[4/5] overflow-hidden">
-        {image.url ? (
+        {image?.url ? (
           <PrismicNextImage
-            field={image}
+            // Cast: Prismic types are strict about filled vs empty image
+            // variants; we've already narrowed with the `image?.url` check.
+            field={image as ImageFieldImage}
             fill
             sizes="(max-width: 767px) 50vw, (max-width: 1199px) 33vw, 25vw"
-            alt={image.alt ?? ""}
+            // Let PrismicNextImage derive `alt` from the field itself.
+            // Passing `alt={image.alt ?? ""}` fails typecheck because the
+            // component's alt prop only accepts the literal "" (decorative).
             className="object-cover transition-transform duration-700 ease-[cubic-bezier(.2,.6,.2,1)] [@media(hover:hover)and(pointer:fine)]:group-hover:scale-[1.05] motion-reduce:transition-none"
           />
         ) : null}

@@ -4,8 +4,7 @@ import sm from "../slicemachine.config.json";
 
 /**
  * The project's Prismic repository name.
- * TODO: user will handle Prismic integration — set the repo name via
- * `npx prismic init` / Slice Machine login when ready.
+ * Repo: LightWorkClothing — https://lightworkclothing.prismic.io/
  */
 export const repositoryName =
   process.env.NEXT_PUBLIC_PRISMIC_ENVIRONMENT || sm.repositoryName;
@@ -16,7 +15,8 @@ export const repositoryName =
  */
 const routes: prismic.ClientConfig["routes"] = [
   { type: "homepage", path: "/" },
-  { type: "product", path: "/shop/:uid" },
+  { type: "product", uid: "custom", path: "/shop/:uid" },
+  { type: "product", path: "/shop" },
   { type: "story", path: "/our-story" },
   { type: "gallery", path: "/gallery" },
 ];
@@ -24,21 +24,25 @@ const routes: prismic.ClientConfig["routes"] = [
 /**
  * Creates a Prismic client for the project's repository. The client is used to
  * query content from the Prismic API.
+ *
+ * Fetches are tagged "prismic" in production so the /api/revalidate webhook
+ * can clear cache on publish (revalidateTag("prismic")).
  */
 export const createClient = (config: prismicNext.CreateClientConfig = {}) => {
-  const client = prismic.createClient(sm.apiEndpoint || repositoryName, {
+  const client = prismic.createClient(repositoryName, {
     routes,
     fetchOptions:
       process.env.NODE_ENV === "production"
-        ? { next: { tags: ["prismic"], revalidate: 60 } } // ISR + tag for revalidate webhook
+        ? { next: { tags: ["prismic"] }, cache: "force-cache" }
         : { next: { revalidate: 5 } },
     ...config,
   });
 
+  // Auto-previews are enabled per-request by @prismicio/next when `req` is
+  // passed in (e.g. createClient({ req }) in a Server Component route).
   prismicNext.enableAutoPreviews({
     client,
-    previewData: config.previewData,
-    req: config.req,
+    ...config,
   });
 
   return client;
