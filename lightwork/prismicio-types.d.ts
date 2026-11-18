@@ -526,6 +526,29 @@ type HeroSectionSliceVariation = HeroSectionSliceDefault
  */
 export type HeroSectionSlice = prismic.SharedSlice<"hero_section", HeroSectionSliceVariation>;
 
+/**
+ * Default variation for ProductCatalogue Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProductCatalogueSliceDefault = prismic.SharedSliceVariation<"default", Record<string, never>, never>;
+
+/**
+ * Slice variation for *ProductCatalogue*
+ */
+type ProductCatalogueSliceVariation = ProductCatalogueSliceDefault
+
+/**
+ * ProductCatalogue Shared Slice
+ *
+ * - **API ID**: `product_catalogue`
+ * - **Description**: *None*
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProductCatalogueSlice = prismic.SharedSlice<"product_catalogue", ProductCatalogueSliceVariation>;
+
 declare module "@prismicio/client" {
 	interface CreateClient {
 		(repositoryNameOrEndpoint: string, options?: prismic.ClientConfig): prismic.Client<AllDocumentTypes>;
@@ -566,7 +589,10 @@ declare module "@prismicio/client" {
 			HeroSectionSlice,
 			HeroSectionSliceDefaultPrimary,
 			HeroSectionSliceVariation,
-			HeroSectionSliceDefault
+			HeroSectionSliceDefault,
+			ProductCatalogueSlice,
+			ProductCatalogueSliceVariation,
+			ProductCatalogueSliceDefault
 		}
 	}
 }

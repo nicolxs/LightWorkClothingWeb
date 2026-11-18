@@ -41,6 +41,7 @@ export default function ProductCard({
   });
 
   return (
+    
     <div className={`group relative flex flex-col overflow-hidden rounded-lg border bg-white shadow-sm transition hover:shadow-md ${isBlackFriday ? 'border-red-600 ring-2 ring-red-600/20' : 'border-gray-200'}`}>
       {/* Badge */}
       {isBlackFriday && (
