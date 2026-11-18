@@ -1,16 +1,67 @@
 {
   "id": "product_catalogue",
-  "name": "ProductCatalogue",
   "type": "SharedSlice",
+  "name": "ProductCatalogue",
+  "description": "Product grid with size selection and WhatsApp ordering",
   "variations": [
     {
-      "description": "Default",
-      "docURL": "",
       "id": "default",
-      "imageUrl": "",
       "name": "Default",
-      "primary": {},
-      "version": ""
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Title",
+            "placeholder": "",
+            "allowTargetBlank": false,
+            "single": "heading2"
+          }
+        },
+        "subtitle": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Subtitle",
+            "placeholder": "",
+            "allowTargetBlank": false,
+            "single": "paragraph"
+          }
+        },
+        "is_black_friday": {
+          "type": "Boolean",
+          "config": {
+            "label": "Black Friday mode",
+            "default_value": false,
+            "placeholder_true": "On",
+            "placeholder_false": "Off"
+          }
+        }
+      },
+      "items": {
+        "product_name": {
+          "type": "Text",
+          "config": { "label": "Product name", "placeholder": "" }
+        },
+        "price": {
+          "type": "Number",
+          "config": { "label": "Price (N$)", "placeholder": "" }
+        },
+        "sale_price": {
+          "type": "Number",
+          "config": { "label": "Sale price (N$)", "placeholder": "" }
+        },
+        "image": {
+          "type": "Image",
+          "config": { "label": "Image", "constraint": {}, "thumbnails": [] }
+        },
+        "sku": {
+          "type": "Text",
+          "config": { "label": "SKU", "placeholder": "" }
+        }
+      }
     }
   ]
 }
