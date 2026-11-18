@@ -1,0 +1,16 @@
+{
+  "id": "product_catalogue",
+  "name": "ProductCatalogue",
+  "type": "SharedSlice",
+  "variations": [
+    {
+      "description": "Default",
+      "docURL": "",
+      "id": "default",
+      "imageUrl": "",
+      "name": "Default",
+      "primary": {},
+      "version": ""
+    }
+  ]
+}
