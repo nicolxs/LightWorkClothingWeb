@@ -1,4 +1,33 @@
 {
   "repositoryName": "lightworkclothing",
-  "routes": []
+  "routes": [
+    {
+      "type": "contact",
+      "path": "/contact"
+    },
+    {
+      "type": "gallery",
+      "path": "/gallery"
+    },
+    {
+      "type": "home_page",
+      "path": "/home-page"
+    },
+    {
+      "type": "our_story",
+      "path": "/our-story"
+    },
+    {
+      "type": "product",
+      "path": "/product/:uid"
+    },
+    {
+      "type": "settings",
+      "path": "/settings"
+    },
+    {
+      "type": "shop_page",
+      "path": "/shop-page"
+    }
+  ]
 }
